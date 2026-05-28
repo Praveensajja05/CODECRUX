@@ -24,7 +24,7 @@ const bcrypt       = require("bcryptjs");
 const cron         = require("node-cron");
 const nodemailer   = require("nodemailer");
 const { calendarRoutes } = require("./calendar");
-const { startPoller , pollerRoutes } = require ( "./poller");
+const { startPoller, pollerRoutes } = require("./poller");
 
 dotenv.config();
 
@@ -153,13 +153,7 @@ async function setupDatabase() {
 // REDIS
 // ─────────────────────────────────────────────
 
-const redisClient = redis.createClient({ 
-  url: REDIS_URL,
-  socket: {
-    tls: true,
-    rejectUnauthorized: false
-  }
-});
+const redisClient = redis.createClient({ url: REDIS_URL });
 redisClient.on("error", (err) => console.log("Redis error:", err));
 
 async function cacheGet(key) {
@@ -870,7 +864,7 @@ app.get("/", (req, res) => {
   });
 });
 calendarRoutes(app, authMiddleware);
-pollerRoutes(app , pool , authMiddleware,pool);
+pollerRoutes(app , pool , authMiddleware);
 app.get("/health", async (req, res) => {
   const checks = {};
   try { await query("SELECT 1"); checks.postgres = "ok"; }
@@ -888,8 +882,13 @@ app.get("/health", async (req, res) => {
 
 async function start() {
   try {
-    await redisClient.connect();
-    console.log("Redis connected");
+    // Redis is optional - server runs without it
+    try {
+      await redisClient.connect();
+      console.log("Redis connected");
+    } catch (err) {
+      console.log("Redis unavailable, running without cache:", err.message);
+    }
 
     await setupDatabase();
 
@@ -901,7 +900,6 @@ async function start() {
     cron.schedule("*/30 * * * *", async () => {
       console.log("Cron: refreshing contests...");
       await fetchAndStoreContests();
-      
     });
 
     // Cron: check reminders every minute
