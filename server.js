@@ -153,7 +153,13 @@ async function setupDatabase() {
 // REDIS
 // ─────────────────────────────────────────────
 
-const redisClient = redis.createClient({ url: REDIS_URL });
+const redisClient = redis.createClient({ 
+  url: REDIS_URL,
+  socket: {
+    tls: true,
+    rejectUnauthorized: false
+  }
+});
 redisClient.on("error", (err) => console.log("Redis error:", err));
 
 async function cacheGet(key) {
@@ -864,7 +870,7 @@ app.get("/", (req, res) => {
   });
 });
 calendarRoutes(app, authMiddleware);
-pollerRoutes(app , pool , authMiddleware);
+pollerRoutes(app , pool , authMiddleware,pool);
 app.get("/health", async (req, res) => {
   const checks = {};
   try { await query("SELECT 1"); checks.postgres = "ok"; }
