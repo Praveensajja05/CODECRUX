@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
-import { getDashboard, getContests, setReminder, removeReminder, getCalendarStatus, getCalendarAuthUrl, addToCalendar, getSuggestions, getNotifications, dismissNotification, syncActivity } from "../utils/api";
+import { getDashboard, getContests, setReminder, removeReminder, getCalendarStatus, getCalendarAuthUrl, addToCalendar, getSuggestions, getNotifications, dismissNotification } from "../utils/api";
 import StreakCard from "../components/dashboard/StreakCard";
 import ContestCard from "../components/contests/ContestCard";
 import SuggestionsPanel from "../components/suggestions/SuggestionsPanel";
