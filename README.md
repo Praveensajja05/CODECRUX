@@ -1,9 +1,9 @@
 # CODECRUX
 # CodeCrux 🧠
 ## Repositories
-- [codecrux-backend](github.com/Praveensajja05/codecrux-backend) — Node.js server
-- [codecrux-frontend](github.com/Praveensajja05/codecrux-frontend) — React app  
-- [codecrux-ml](github.com/Praveensajja05/codecrux-ml) — Python ML service
+- [codecrux-backend](https://github.com/Praveensajja05/codecrux-backend) — Node.js server
+- [codecrux-frontend](https://github.com/Praveensajja05/codecrux-frontend) — React app  
+- [codecrux-ml](https://github.com/Praveensajja05/codecrux-ml) — Python ML service
 
 > **An AI-powered competitive programming tutor** that aggregates contests from every major platform, tracks your coding streak, and diagnoses *exactly* what you don't understand from your failed submissions — not just "wrong answer", but the specific concept you're missing.
 
